@@ -28,6 +28,9 @@
   "dependencies": {
     "@hapi/hapi": "^21.3.0",
     "@hapi/vision": "^7.0.1",
-    "handlebars": "^4.7.7"
+    "handlebars": "^4.7.7",
+    "joi": "^17.8.3",
+    "mongoose": "^7.0.1",
+    "uuid": "^9.0.0"
   }
 }
