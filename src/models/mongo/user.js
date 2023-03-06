@@ -1,5 +1,4 @@
 import Mongoose from "mongoose";
-
 const { Schema } = Mongoose;
 
 const userSchema = new Schema({
