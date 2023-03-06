@@ -12,5 +12,6 @@ export const db = {
     this.userStore = userMongoStore;
     this.categoryStore = categoryMongoStore;
     this.trackStore = trackMongoStore;
+    connectMongo();
   }
 };
