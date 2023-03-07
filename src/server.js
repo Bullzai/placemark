@@ -9,6 +9,7 @@ import Handlebars from "handlebars";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
+import { apiRoutes } from "./api-routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,6 +55,7 @@ async function init() {
 
   db.init();
   server.route(webRoutes);
+  server.route(apiRoutes);
   await server.start();
   console.log("Server running on %s", server.info.uri);
 }
