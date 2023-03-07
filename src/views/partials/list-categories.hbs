@@ -3,5 +3,13 @@
   <h2 class="title">
     {{title}}
   </h2>
+  <a href="/category/{{_id}}" class="button">
+    <span class="icon is-small">
+      <i class="fas fa-folder-open"></i>
+    </span>
+  </a>
+  <a href="/dashboard/deletecategory/{{_id}}" class="button">
+    <i class="fas fa-trash"></i>
+  </a>
 </div>
 {{/each}}
