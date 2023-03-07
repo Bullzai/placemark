@@ -1,0 +1,38 @@
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Placemark</th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Category</th>
+      <th>Image</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each category.placemarks}}
+    <tr>
+      <td>
+        {{title}}
+      </td>
+      <td>
+        {{description}}
+      </td>
+      <td>
+        {{location}}
+      </td>
+      <td>
+        {{category}}
+      </td>
+      <td>
+        {{image}}
+      </td>
+      <td>
+        <a href="/category/{{../category._id}}/deleteplacemark/{{_id}}" class="ui icon button">
+          <i class="fas fa-trash"></i>
+        </a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
