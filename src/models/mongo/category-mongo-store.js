@@ -1,5 +1,5 @@
 import { Category } from "./category.js";
-import { trackMongoStore } from "./track-mongo-store.js";
+import { placemarkMongoStore } from "./placemark-mongo-store.js";
 
 export const categoryMongoStore = {
   async getAllCategories() {
@@ -11,7 +11,7 @@ export const categoryMongoStore = {
     if (id) {
       const category = await Category.findOne({ _id: id }).lean();
       if (category) {
-        category.tracks = await trackMongoStore.getTracksByCategoryId(category._id);
+        category.placemarks = await placemarkMongoStore.getPlacemarksByCategoryId(category._id);
       }
       return category;
     }
