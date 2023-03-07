@@ -8,7 +8,7 @@ export const db = {
   categoryStore: null,
   trackStore: null,
 
-  init(storeType) {
+  init() {
     this.userStore = userMongoStore;
     this.categoryStore = categoryMongoStore;
     this.trackStore = trackMongoStore;
