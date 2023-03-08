@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 import { assert } from "chai";
-import { categoryService } from "./category-service";
+import { categoryService } from "./category-service.js";
 import { assertSubset } from "../test-utils.js";
 import { maggie, museum, testCategories } from "../fixtures.js";
 
