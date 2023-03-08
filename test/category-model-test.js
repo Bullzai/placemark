@@ -1,11 +1,12 @@
 import { assert } from "chai";
 import { db } from "../src/models/db.js";
 import { testCategories, museum } from "./fixtures.js";
+import { assertSubset } from "./test-utils.js"
 
 suite("Category Model tests", () => {
 
   setup(async () => {
-    db.init("json");
+    db.init();
     await db.categoryStore.deleteAllCategories();
     for (let i = 0; i < testCategories.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -15,7 +16,7 @@ suite("Category Model tests", () => {
 
   test("create a category", async () => {
     const category = await db.categoryStore.addCategory(museum);
-    assert.equal(museum, category);
+    assertSubset(museum, category);
     assert.isDefined(category._id);
   });
 
@@ -30,7 +31,7 @@ suite("Category Model tests", () => {
   test("get a category - success", async () => {
     const category = await db.categoryStore.addCategory(museum);
     const returnedCategory = await db.categoryStore.getCategoryById(category._id);
-    assert.equal(museum, category);
+    assertSubset(museum, category);
   });
 
   test("delete One Category - success", async () => {

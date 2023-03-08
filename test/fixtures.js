@@ -27,19 +27,11 @@ export const testUsers = [
 ];
 
 export const museum = {
-  title: "National museum"
-};
-
-export const park = {
-  "title": "Park down the road",
-  "description": "A park somewhere close",
-  "location": "Cork",
-  "category": "Parks",
-  "image": 2
+  title: "Museums"
 };
 
 export const monument = {
-  title: "National museum"
+  title: "Monuments"
 };
 
 export const testCategories = [
@@ -53,6 +45,14 @@ export const testCategories = [
     title: "Monuments"
   }
 ];
+
+export const park = {
+  "title": "Park down the road",
+  "description": "A park somewhere close",
+  "location": "Cork",
+  "category": "Parks",
+  "image": 2
+};
 
 export const testPlacemarks = [
   {
