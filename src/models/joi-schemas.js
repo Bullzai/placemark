@@ -12,10 +12,19 @@ export const UserSpec = {
   password: Joi.string().required(),
 };
 
-export const TrackSpec = {
+export const UserEditSpec = {
+  firstName: Joi.string().allow("").optional(),
+  lastName: Joi.string().allow("").optional(),
+  email: Joi.string().email().allow("").optional(),
+  password: Joi.string().allow("").min(4).optional(),
+};
+
+export const PlacemarkSpec = {
   title: Joi.string().required(),
-  artist: Joi.string().required(),
-  duration: Joi.number().allow("").optional(),
+  description: Joi.string().required(),
+  location: Joi.string().required(),
+  category: Joi.string().required(),
+  image: Joi.number().allow("").optional(),
 };
 
 export const CategorySpec = {

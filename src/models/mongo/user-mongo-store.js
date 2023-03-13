@@ -36,5 +36,15 @@ export const userMongoStore = {
 
   async deleteAll() {
     await User.deleteMany({});
-  }
+  },
+
+  async editUser(user) {
+    const userId = await User.findOne({ _id: user._id }).lean();
+    // Don't update the _id.
+    delete user._id;
+    // Update each field that was filled by the user
+    Object.keys(user).forEach(async element => {
+      await User.findOneAndUpdate({ _id: userId._id }, { [element]: user[element] });
+    });
+  },
 };

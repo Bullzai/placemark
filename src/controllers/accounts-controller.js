@@ -1,4 +1,4 @@
-import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
+import { UserSpec, UserCredentialsSpec, UserEditSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 export const accountsController = {
@@ -58,6 +58,38 @@ export const accountsController = {
     handler: function (request, h) {
       request.cookieAuth.clear();
       return h.redirect("/");
+    },
+  },
+  showProfile: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const viewData = {
+        title: "Profile information",
+        user: loggedInUser,
+      };
+      return h.view("profile", viewData);
+    },
+  },
+  editProfile: {
+    validate: {
+      payload: UserEditSpec,
+      options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("profile", { title: "Invalid values", errors: error.details }).takeover().code(400);
+      },
+    },
+    handler: async function (request, h) {
+      const user = request.payload;
+      // Iterate over the form and remove fields from the object that are empty
+      Object.keys(user).forEach(element => {
+        if (user[element] === "") {
+          delete user[element];
+        }
+      });
+
+      user._id = request.auth.credentials._id;
+      await db.userStore.editUser(user);
+      return h.redirect("/profile");
     },
   },
 

@@ -10,6 +10,8 @@ export const webRoutes = [
   { method: "GET", path: "/logout", config: accountsController.logout },
   { method: "POST", path: "/register", config: accountsController.signup },
   { method: "POST", path: "/authenticate", config: accountsController.login },
+  { method: "GET", path: "/profile", config: accountsController.showProfile },
+  { method: "POST", path: "/profile/editprofile", config: accountsController.editProfile },
 
   { method: "GET", path: "/about", config: aboutController.index },
 
@@ -18,6 +20,6 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard/deletecategory/{id}", config: dashboardController.deleteCategory },
 
   { method: "GET", path: "/category/{id}", config: categoryController.index },
-  { method: "POST", path: "/category/{id}/addtrack", config: categoryController.addTrack },
-  { method: "GET", path: "/category/{id}/deletetrack/{trackid}", config: categoryController.deleteTrack },
+  { method: "POST", path: "/category/{id}/addplacemark", config: categoryController.addPlacemark },
+  { method: "GET", path: "/category/{id}/deleteplacemark/{placemarkid}", config: categoryController.deletePlacemark },
 ];
