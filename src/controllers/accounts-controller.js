@@ -1,4 +1,4 @@
-import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
+import { UserSpec, UserCredentialsSpec, UserEditSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 export const accountsController = {
@@ -72,10 +72,18 @@ export const accountsController = {
   },
   editProfile: {
     validate: {
-
+      payload: UserEditSpec,
+      options: { abortEarly: false },
     },
     handler: async function (request, h) {
       const user = request.payload;
+
+      Object.keys(user).forEach(element => {
+        if (user[element] === "") {
+          delete user[element];
+        }
+      });
+
       user._id = request.auth.credentials._id;
       console.log(user)
       await db.userStore.editUser(user);
