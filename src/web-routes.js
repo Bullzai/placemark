@@ -10,6 +10,8 @@ export const webRoutes = [
   { method: "GET", path: "/logout", config: accountsController.logout },
   { method: "POST", path: "/register", config: accountsController.signup },
   { method: "POST", path: "/authenticate", config: accountsController.login },
+  { method: "GET", path: "/profile", config: accountsController.showProfile },
+  { method: "POST", path: "/profile/editprofile", config: accountsController.editProfile },
 
   { method: "GET", path: "/about", config: aboutController.index },
 

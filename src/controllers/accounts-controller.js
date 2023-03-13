@@ -60,6 +60,28 @@ export const accountsController = {
       return h.redirect("/");
     },
   },
+  showProfile: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const viewData = {
+        title: "Profile information",
+        user: loggedInUser,
+      };
+      return h.view("profile", viewData);
+    },
+  },
+  editProfile: {
+    validate: {
+
+    },
+    handler: async function (request, h) {
+      const user = request.payload;
+      user._id = request.auth.credentials._id;
+      console.log(user)
+      await db.userStore.editUser(user);
+      return h.redirect("/profile");
+    },
+  },
 
   async validate(request, session) {
     const user = await db.userStore.getUserById(session.id);

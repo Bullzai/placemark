@@ -1,0 +1,43 @@
+{{> menu id="profile"}}
+
+<section class="ui segment">
+  <div class="columns">
+    <form action="/profile/editprofile" method="POST">
+      <div class="column">
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder={{user.firstName}} name="firstName">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Last Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder={{user.lastName}} name="lastName">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="email" placeholder={{user.email}} name="email">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input class="input" type="text" name="password">
+          </div>
+        </div>
+        <div class="control">
+          <button class="button is-primary">Submit</button>
+        </div>
+        <p><i>* Fill only the fields you wish to change. Blank fields will be unchanged.</i></p>
+      </div>
+    </form>
+    <div class="column">
+      <img class="ui image"
+        src="https://raw.githubusercontent.com/Bullzai/weatherTop/master/public/images/edit-profile.png"
+        alt="Edit Profile picture">
+    </div>
+  </div>
+</section>
