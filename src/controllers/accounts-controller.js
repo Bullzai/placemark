@@ -74,10 +74,13 @@ export const accountsController = {
     validate: {
       payload: UserEditSpec,
       options: { abortEarly: false },
+      failAction: function (request, h, error) {
+        return h.view("profile", { title: "Invalid values", errors: error.details }).takeover().code(400);
+      },
     },
     handler: async function (request, h) {
       const user = request.payload;
-
+      // Iterate over the form and remove fields from the object that are empty
       Object.keys(user).forEach(element => {
         if (user[element] === "") {
           delete user[element];
@@ -85,7 +88,6 @@ export const accountsController = {
       });
 
       user._id = request.auth.credentials._id;
-      console.log(user)
       await db.userStore.editUser(user);
       return h.redirect("/profile");
     },
