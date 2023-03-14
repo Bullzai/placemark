@@ -26,14 +26,43 @@ export const UserEditSpec = {
   password: Joi.string().allow("").min(4).optional(),
 };
 
-export const PlacemarkSpec = {
-  title: Joi.string().required(),
-  description: Joi.string().required(),
-  location: Joi.string().required(),
-  category: Joi.string().required(),
-  image: Joi.number().allow("").optional(),
-};
+// export const PlacemarkSpec = {
+//   title: Joi.string().required(),
+//   description: Joi.string().required(),
+//   location: Joi.string().required(),
+//   category: Joi.string().required(),
+//   image: Joi.number().allow("").optional(),
+// };
 
-export const CategorySpec = {
-  title: Joi.string().required(),
-};
+export const PlacemarkSpec = Joi.object().keys({
+  title: Joi.string().required().example("Tramore Park"),
+  description: Joi.string().required().example("Park in Cork, Ireland"),
+  location: Joi.string().required().example("52.125 , 25.735"),
+  category: Joi.string().required().example("Parks"),
+  image: Joi.number().allow("").optional(),
+  categoryid: IdSpec,
+}).label("Placemark");
+
+export const PlacemarkSpecPlus = PlacemarkSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("PlacemarkPlus");
+
+export const PlacemarkArraySpec = Joi.array().items(PlacemarkSpecPlus).label("PlacemarkArray");
+
+// export const CategorySpec = {
+//   title: Joi.string().required(),
+// };
+
+export const CategorySpec = Joi.object().keys({
+  title: Joi.string().required().example("Parks"),
+  userid: IdSpec,
+  placemarks: PlacemarkArraySpec,
+}).label("Category");
+
+export const CategorySpecPlus = CategorySpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("CategoryPlus");
+
+export const CategoryArraySpec = Joi.array().items(CategorySpecPlus).label("CategoryArray");
