@@ -1,18 +1,23 @@
 import { assert } from "chai";
 import { categoryService } from "./category-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, testUsers } from "../fixtures.js";
+import { maggie, maggieCredentials, testUsers } from "../fixtures.js";
 import { db } from "../../src/models/db.js";
 
 const users = new Array(testUsers.length);
 
 suite("User API tests", () => {
   setup(async () => {
+    categoryService.clearAuth();
+    await categoryService.createUser(maggie);
+    await categoryService.authenticate(maggieCredentials);
     await categoryService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       users[0] = await categoryService.createUser(testUsers[i]);
     }
+    await categoryService.createUser(maggie);
+    await categoryService.authenticate(maggieCredentials);
   });
   teardown(async () => { });
 
@@ -22,12 +27,14 @@ suite("User API tests", () => {
     assert.isDefined(newUser._id);
   });
 
-  test("delete all userApi", async () => {
+  test("delete all users", async () => {
     let returnedUsers = await categoryService.getAllUsers();
-    assert.equal(returnedUsers.length, 3);
+    assert.equal(returnedUsers.length, 4);
     await categoryService.deleteAllUsers();
+    await categoryService.createUser(maggie);
+    await categoryService.authenticate(maggieCredentials);
     returnedUsers = await categoryService.getAllUsers();
-    assert.equal(returnedUsers.length, 0);
+    assert.equal(returnedUsers.length, 1);
   });
 
   test("get a user", async () => {
@@ -47,6 +54,8 @@ suite("User API tests", () => {
 
   test("get a user - deleted user", async () => {
     await categoryService.deleteAllUsers();
+    await categoryService.createUser(maggie);
+    await categoryService.authenticate(maggieCredentials);
     try {
       const returnedUser = await categoryService.getUser(users[0]._id);
       assert.fail("Should not return a response");

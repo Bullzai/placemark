@@ -5,7 +5,9 @@ import { validationError } from "./logger.js";
 
 export const placemarkApi = {
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const placemarks = await db.placemarkStore.getAllPlacemarks();
@@ -21,7 +23,9 @@ export const placemarkApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     async handler(request) {
       try {
         const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
@@ -41,7 +45,9 @@ export const placemarkApi = {
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const placemark = await db.placemarkStore.addPlacemark(request.params.id, request.payload);
@@ -61,7 +67,9 @@ export const placemarkApi = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         await db.placemarkStore.deleteAllPlacemarks();
@@ -75,7 +83,9 @@ export const placemarkApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
