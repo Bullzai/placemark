@@ -1,17 +1,21 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { categoryService } from "./category-service.js";
-import { maggie, museum, testCategories, testPlacemarks, park } from "../fixtures.js";
+import { maggie, museum, maggieCredentials, testCategories, testPlacemarks, park } from "../fixtures.js";
 
 suite("Placemark API tests", () => {
   let user = null;
   let category = null;
 
   setup(async () => {
-    await categoryService.deleteAllCategories();
-    await categoryService.deleteAllUsers();
-    await categoryService.deleteAllPlacemarks();
+    categoryService.clearAuth();
     user = await categoryService.createUser(maggie);
+    await categoryService.authenticate(maggieCredentials);
+    await categoryService.deleteAllCategories();
+    await categoryService.deleteAllPlacemarks();
+    await categoryService.deleteAllUsers();
+    user = await categoryService.createUser(maggie);
+    await categoryService.authenticate(maggieCredentials);
     museum.userid = user._id;
     category = await categoryService.createCategory(museum);
   });
