@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node --watch src/server.js",
+    "start": "node src/server.js",
     "lint": "./node_modules/.bin/eslint . --ext .js",
     "test": "./node_modules/mocha/bin/_mocha --ui tdd test/**.js -exit"
   },
@@ -33,9 +33,11 @@
     "@hapi/boom": "^10.0.1",
     "@hapi/cookie": "^12.0.1",
     "@hapi/hapi": "^21.3.0",
+    "@hapi/inert": "^7.1.0",
     "@hapi/vision": "^7.0.1",
     "dotenv": "^16.0.3",
     "handlebars": "^4.7.7",
+    "hapi-swagger": "^16.0.1",
     "joi": "^17.8.3",
     "mongoose": "^7.0.1",
     "uuid": "^9.0.0"

@@ -1,5 +1,6 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
+import { UserCredentialsSpec, UserSpec, UserArray } from "../models/joi-schemas.js";
 
 export const userApi = {
   find: {
@@ -12,6 +13,10 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    tags: ["api"],
+    description: "Get all userApi",
+    notes: "Returns details of all userApi",
+    response: { schema: UserArray }
   },
 
   findOne: {
