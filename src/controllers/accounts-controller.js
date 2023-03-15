@@ -96,14 +96,23 @@ export const accountsController = {
   adminPanel: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
+      const users = await db.userStore.getAllUsers();
       const viewData = {
         title: "Admin Panel",
         user: loggedInUser,
+        users: users
       };
       if (loggedInUser.admin) {
         return h.view("admin-view", viewData);
       }
       return h.redirect("/dashboard");
+    },
+  },
+
+  deleteUser: {
+    handler: async function (request, h) {
+      await db.userStore.deleteUserById(request.params.id)
+      return h.redirect("/admin");
     },
   },
 
