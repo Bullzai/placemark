@@ -1,17 +1,20 @@
 import { assert } from "chai";
 import { categoryService } from "./category-service.js";
 import { assertSubset } from "../test-utils.js";
-
-import { maggie, museum, testCategories } from "../fixtures.js";
+import { maggie, maggieCredentials, museum, testCategories } from "../fixtures.js";
 
 suite("Category API tests", () => {
 
   let user = null;
 
   setup(async () => {
+    categoryService.clearAuth();
+    user = await categoryService.createUser(maggie);
+    await categoryService.authenticate(maggieCredentials);
     await categoryService.deleteAllCategories();
     await categoryService.deleteAllUsers();
     user = await categoryService.createUser(maggie);
+    await categoryService.authenticate(maggieCredentials);
     museum.userid = user._id;
   });
 

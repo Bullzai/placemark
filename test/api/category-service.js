@@ -78,13 +78,13 @@ export const categoryService = {
     return res.data;
   },
 
-  // async authenticate(user) {
-  //   const response = await axios.post(`${this.categoryUrl}/api/users/authenticate`, user);
-  //   axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
-  //   return response.data;
-  // },
+  async authenticate(user) {
+    const response = await axios.post(`${this.categoryUrl}/api/users/authenticate`, user);
+    axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
+    return response.data;
+  },
 
-  // async clearAuth() {
-  //   axios.defaults.headers.common["Authorization"] = "";
-  // },
+  async clearAuth() {
+    axios.defaults.headers.common.Authorization = "";
+  },
 };

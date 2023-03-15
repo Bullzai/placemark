@@ -54,4 +54,11 @@ suite("User Model tests", () => {
     const allUsers = await db.userStore.getAllUsers();
     assert.equal(testUsers.length, allUsers.length);
   });
+
+  test("create an admin user", async () => {
+    await db.userStore.deleteAll();
+    testUsers[0].admin = true;
+    const newUser = await db.userStore.addUser(testUsers[0]);
+    assertSubset(testUsers[0], newUser);
+  });
 });

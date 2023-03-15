@@ -8,6 +8,7 @@ export const categoryController = {
       const viewData = {
         title: "Category",
         category: category,
+        user: request.auth.credentials,
       };
       return h.view("category-view", viewData);
     },
