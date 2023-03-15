@@ -73,3 +73,7 @@ export const JwtAuth = Joi.object()
     token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
   })
   .label("JwtAuth");
+
+export const AdminSpec = {
+  admin: Joi.boolean().required(),
+};

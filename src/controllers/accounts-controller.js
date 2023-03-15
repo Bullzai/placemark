@@ -1,4 +1,4 @@
-import { UserSpec, UserCredentialsSpec, UserEditSpec } from "../models/joi-schemas.js";
+import { UserSpec, UserCredentialsSpec, UserEditSpec, AdminSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 export const accountsController = {
@@ -90,6 +90,20 @@ export const accountsController = {
       user._id = request.auth.credentials._id;
       await db.userStore.editUser(user);
       return h.redirect("/profile");
+    },
+  },
+
+  adminPanel: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+      const viewData = {
+        title: "Admin Panel",
+        user: loggedInUser,
+      };
+      if (loggedInUser.admin) {
+        return h.view("admin-view", viewData);
+      }
+      return h.redirect("/dashboard");
     },
   },
 
