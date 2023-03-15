@@ -26,14 +26,23 @@ if (result.error) {
 
 const swaggerOptions = {
   info: {
-    title: "Placemark API",
+    title: "Playtime API",
     version: "0.1",
   },
+  securityDefinitions: {
+    jwt: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header",
+    },
+  },
+  security: [{ jwt: [] }],
 };
 
 async function init() {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
+    host: "localhost"
   });
 
   await server.register(Inert);
