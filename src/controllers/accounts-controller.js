@@ -97,10 +97,14 @@ export const accountsController = {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const users = await db.userStore.getAllUsers();
+      const placemarks = await db.placemarkStore.getAllPlacemarks();
+      const categories = await db.categoryStore.getAllCategories();
       const viewData = {
         title: "Admin Panel",
         user: loggedInUser,
-        users: users
+        users: users,
+        placemarks: placemarks,
+        categories: categories,
       };
       if (loggedInUser.admin) {
         return h.view("admin-view", viewData);
