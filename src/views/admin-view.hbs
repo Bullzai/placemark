@@ -1,8 +1,57 @@
 {{> menu active="admin"}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
 <div class="columns is-vcentered ">
   <div class="column has-text-centered">
-    <h> Yaaay, I'm an admin</h>
     {{> list-users}}
   </div>
 </div>
+
+<div style="width: 100%;"><canvas id="myChart"></canvas></div>
+
+<script>
+  const ds = [];
+  ds.push('{{categories.length}}');
+  ds.push('{{placemarks.length}}');
+  ds.push('{{users.length}}');
+  const data = {
+    labels: ["Categories", "Placemarks", "Users"],
+    datasets: [{
+      label: 'Categories',
+      data: ds,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  new Chart("myChart", {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+          },
+        }],
+      },
+    },
+  });
+</script>
