@@ -7,11 +7,16 @@ export const placemarkController = {
       const category = await db.categoryStore.getCategoryById(request.params.id);
       const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
       const loggedInUser = request.auth.credentials;
+      let validImg = false;
+      if (placemark.image.length > 5) {
+        validImg = true;
+      }
       const viewData = {
         title: "Edit Placemark",
         category: category,
         placemark: placemark,
-        user: loggedInUser
+        user: loggedInUser,
+        validImg: validImg,
       };
       return h.view("placemark-view", viewData);
     },

@@ -1,9 +1,11 @@
 <div class="card">
+  {{#if image}}
   <div class="card-image">
     <figure class="image is-256x256">
       <img src={{image}}>
     </figure>
   </div>
+  {{/if}}
   <div class="card-content">
     <form action="/category/uploadimage/{{_id}}" method="POST" enctype="multipart/form-data">
       <div id="file-select" class="file has-name is-fullwidth">
