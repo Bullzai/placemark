@@ -6,10 +6,12 @@ export const placemarkController = {
     handler: async function (request, h) {
       const category = await db.categoryStore.getCategoryById(request.params.id);
       const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
+      const loggedInUser = request.auth.credentials;
       const viewData = {
         title: "Edit Placemark",
         category: category,
         placemark: placemark,
+        user: loggedInUser
       };
       return h.view("placemark-view", viewData);
     },
@@ -27,8 +29,8 @@ export const placemarkController = {
       const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
       const newPlacemark = {
         title: request.payload.title,
-        artist: request.payload.artist,
-        duration: Number(request.payload.duration),
+        description: request.payload.description,
+        location: request.payload.location,
       };
       await db.placemarkStore.updatePlacemark(placemark, newPlacemark);
       return h.redirect(`/category/${request.params.id}`);
