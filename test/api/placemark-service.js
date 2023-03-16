@@ -1,7 +1,7 @@
 import axios from "axios";
 import { serviceUrl } from "../fixtures.js";
 
-export const categoryService = {
+export const placemarkService = {
   categoryUrl: serviceUrl,
 
   async createUser(user) {

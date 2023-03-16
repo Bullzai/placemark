@@ -39,7 +39,6 @@ export const PlacemarkSpec = Joi.object().keys({
   description: Joi.string().required().example("Park in Cork, Ireland"),
   location: Joi.string().required().example("52.125 , 25.735"),
   category: Joi.string().required().example("Parks"),
-  image: Joi.number().allow("").optional(),
   categoryid: IdSpec,
 }).label("Placemark");
 
