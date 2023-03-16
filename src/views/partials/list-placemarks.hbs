@@ -4,7 +4,6 @@
       <th>Placemark</th>
       <th>Description</th>
       <th>Location</th>
-      <th>Category</th>
       <th>Image</th>
       <th></th>
     </tr>
@@ -22,10 +21,9 @@
         {{location}}
       </td>
       <td>
-        {{category}}
-      </td>
-      <td>
-        {{image}}
+        <div class="column">
+          {{> placemark-image }}
+        </div>
       </td>
       <td>
         <a href="/category/{{../category._id}}/deleteplacemark/{{_id}}" class="ui icon button">

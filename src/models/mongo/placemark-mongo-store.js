@@ -42,7 +42,12 @@ export const placemarkMongoStore = {
     placemark.title = updatedPlacemark.title;
     placemark.description = updatedPlacemark.description;
     placemark.location = updatedPlacemark.location;
-    placemark.category = updatedPlacemark.category;
+    placemark.image = updatedPlacemark.image;
+    await placemark.save();
+  },
+
+  async updatePlacemarkImg(updatedPlacemark) {
+    const placemark = await Placemark.findOne({ _id: updatedPlacemark._id });
     placemark.image = updatedPlacemark.image;
     await placemark.save();
   },
