@@ -7,7 +7,7 @@ export const placemarkController = {
       const category = await db.categoryStore.getCategoryById(request.params.id);
       const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
       const viewData = {
-        title: "Edit Song",
+        title: "Edit Placemark",
         category: category,
         placemark: placemark,
       };
