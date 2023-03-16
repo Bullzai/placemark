@@ -1,5 +1,5 @@
 import axios from "axios";
-import { maggie, serviceUrl } from "../fixtures.js";
+import { serviceUrl } from "../fixtures.js";
 
 export const categoryService = {
   categoryUrl: serviceUrl,
