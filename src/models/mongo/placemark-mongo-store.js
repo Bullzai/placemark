@@ -51,4 +51,9 @@ export const placemarkMongoStore = {
     placemark.image = updatedPlacemark.image;
     await placemark.save();
   },
+
+  async deletePlacemarkImg(updatedPlacemark) {
+    const placemark = await Placemark.findOne({ _id: updatedPlacemark._id });
+    await Placemark.updateOne({ _id: placemark._id }, { $unset: { image: "" } });
+  },
 };

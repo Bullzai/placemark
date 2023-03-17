@@ -1,20 +1,18 @@
 {{> menu active="admin"}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<div class="box">
+  <span class="tag is-warning">Users</span>
+  {{> list-users-admin}}
+</div>
 
-<div class="columns is-vcentered ">
-  <div class="column has-text-centered">
-    {{> list-users-admin}}
-  </div>
+<div class="box">
+  <span class="tag is-info">Categories</span>
+  {{> list-categories-admin}}
 </div>
-<div class="columns is-vcentered ">
-  <div class="column has-text-centered">
-    {{> list-categories-admin}}
-  </div>
-</div>
-<div class="columns is-vcentered ">
-  <div class="column has-text-centered">
-    {{> list-placemarks-admin}}
-  </div>
+
+<div class="box">
+  <span class="tag is-link">Placemarks</span>
+  {{> list-placemarks-admin}}
 </div>
 
 <div style="width: 100%;"><canvas id="myChart"></canvas></div>

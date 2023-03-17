@@ -1,5 +1,6 @@
 import { PlacemarkSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import { imageStore } from "../models/image-store.js";
 
 export const placemarkController = {
   index: {
@@ -37,4 +38,51 @@ export const placemarkController = {
       return h.redirect(`/category/${request.params.id}`);
     },
   },
+
+  uploadImage: {
+    handler: async function (request, h) {
+      try {
+        // const category = await db.categoryStore.getCategoryById(request.params.id);
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          // console.log(request.payload.imagefile);
+          // console.log(url);
+          placemark.image = url;
+          await db.placemarkStore.updatePlacemarkImg(placemark);
+          // await db.categoryStore.updatePlaylist(category);
+        }
+        return h.redirect("/dashboard");
+      } catch (err) {
+        console.log(err);
+        return h.redirect("/dashboard");
+        // return h.redirect(`/category/${category._id}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+  },
+
+  deleteImage: {
+    handler: async function (request, h) {
+      try {
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
+        const url = placemark.image;
+        // Public id is just the name of the file stored in cloudinary, extract the name using regEx
+        const publicId = url.match(/\/([^/]+)\.\w{3,4}(?=\.|$)/)[1];
+        await imageStore.deleteImage(publicId);
+        // placemark.image = "";
+        await db.placemarkStore.deletePlacemarkImg(placemark);
+        return h.redirect("/dashboard");
+      } catch (err) {
+        console.log(err);
+        return h.redirect("/dashboard");
+      }
+    },
+  }
 };

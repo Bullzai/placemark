@@ -7,6 +7,12 @@
   </div>
   {{/if}}
   <div class="card-content">
+    {{#if image}}
+    <form action="/category/deleteimage/{{_id}}" method="GET">
+      <button type="submit" class="button is-info">Delete</button>
+    </form>
+    {{else}}
+
     <form action="/category/uploadimage/{{_id}}" method="POST" enctype="multipart/form-data">
       <div id="file-select" class="file has-name is-fullwidth">
         <label class="file-label">
@@ -24,6 +30,7 @@
         <button type="submit" class="button is-info">Upload</button>
       </div>
     </form>
+    {{/if}}
   </div>
 </div>
 <script>
