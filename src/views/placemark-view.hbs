@@ -1,0 +1,19 @@
+{{> menu}}
+
+<form class="box" action="/category/{{category._id}}/updateplacemark/{{placemark._id}}" method="POST">
+  <label>Update Placemark Details:</label>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <input class="input" type="text" name="title" , placeholder="{{placemark.title}}">
+      </div>
+      <div class="field">
+        <input class="input" type="text" name="description" placeholder="{{placemark.description}}">
+      </div>
+      <div class="field">
+        <input class="input" type="text" name="location" placeholder="{{placemark.location}}">
+      </div>
+    </div>
+  </div>
+  <button class="button is-primary">Update Placemark</button>
+</form>

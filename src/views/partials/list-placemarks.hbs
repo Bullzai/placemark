@@ -1,38 +1,24 @@
-<table class="table is-fullwidth">
-  <thead>
-    <tr>
-      <th>Placemark</th>
-      <th>Description</th>
-      <th>Location</th>
-      <th>Category</th>
-      <th>Image</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each category.placemarks}}
-    <tr>
-      <td>
-        {{title}}
-      </td>
-      <td>
-        {{description}}
-      </td>
-      <td>
-        {{location}}
-      </td>
-      <td>
-        {{category}}
-      </td>
-      <td>
-        {{image}}
-      </td>
-      <td>
-        <a href="/category/{{../category._id}}/deleteplacemark/{{_id}}" class="ui icon button">
+<div class="columns is-multiline">
+  {{#each category.placemarks}}
+  <div class="column is-one-third">
+    <div class="card">
+      <div class="card-content">
+        <p class="title">{{title}}</p>
+        <p class="subtitle">{{location}}</p>
+        <div class="content">{{description}}</div>
+        <div class="card-image">
+          {{> placemark-image }}
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a href="/category/{{../category._id}}/editplacemark/{{_id}}" class="card-footer-item">
+          <i class="fas fa-edit"></i>
+        </a>
+        <a href="/category/{{../category._id}}/deleteplacemark/{{_id}}" class="card-footer-item">
           <i class="fas fa-trash"></i>
         </a>
-      </td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+      </footer>
+    </div>
+  </div>
+  {{/each}}
+</div>
