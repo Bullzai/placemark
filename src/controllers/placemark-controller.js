@@ -42,22 +42,17 @@ export const placemarkController = {
   uploadImage: {
     handler: async function (request, h) {
       try {
-        // const category = await db.categoryStore.getCategoryById(request.params.id);
         const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
         const file = request.payload.imagefile;
         if (Object.keys(file).length > 0) {
           const url = await imageStore.uploadImage(request.payload.imagefile);
-          // console.log(request.payload.imagefile);
-          // console.log(url);
           placemark.image = url;
           await db.placemarkStore.updatePlacemarkImg(placemark);
-          // await db.categoryStore.updatePlaylist(category);
         }
-        return h.redirect("/dashboard");
+        return h.redirect(`/category/${placemark.categoryid}`);
       } catch (err) {
         console.log(err);
-        return h.redirect("/dashboard");
-        // return h.redirect(`/category/${category._id}`);
+        return h.redirect(`/category/${placemark.categoryid}`);
       }
     },
     payload: {

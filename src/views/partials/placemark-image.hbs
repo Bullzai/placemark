@@ -9,10 +9,9 @@
   <div class="card-content">
     {{#if image}}
     <form action="/category/deleteimage/{{_id}}" method="GET">
-      <button type="submit" class="button is-info">Delete</button>
+      <button type="submit" class="button is-danger is-light is-fullwidth">Delete Image</button>
     </form>
     {{else}}
-
     <form action="/category/uploadimage/{{_id}}" method="POST" enctype="multipart/form-data">
       <div id="file-select" class="file has-name is-fullwidth">
         <label class="file-label">

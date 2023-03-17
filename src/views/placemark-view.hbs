@@ -5,15 +5,20 @@
   <div class="field is-horizontal">
     <div class="field-body">
       <div class="field">
-        <input class="input" type="text" name="title" , placeholder="{{placemark.title}}">
+        <input class="input" type="text" name="title" , placeholder="title" value={{placemark.title}}">
+      </div>
+      <div class=" field">
+        <input class="input" type="text" name="description" placeholder="description" value={{placemark.description}}">
       </div>
       <div class="field">
-        <input class="input" type="text" name="description" placeholder="{{placemark.description}}">
-      </div>
-      <div class="field">
-        <input class="input" type="text" name="location" placeholder="{{placemark.location}}">
+        <input class="input" type="text" name="location" placeholder="location" value="{{placemark.location}}">
       </div>
     </div>
   </div>
-  <button class="button is-primary">Update Placemark</button>
+  {{#if placemark.image}}
+  <figure class="image is-fullwidth">
+    <img src={{placemark.image}}>
+  </figure>
+  {{/if}}
+  <button class="button is-primary is-fullwidth">Update Placemark</button>
 </form>
