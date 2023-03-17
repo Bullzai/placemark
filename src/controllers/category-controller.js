@@ -27,9 +27,10 @@ export const categoryController = {
       const newPlacemark = {
         title: request.payload.title,
         description: request.payload.description,
-        location: request.payload.location,
-        category: request.payload.category,
-        image: request.payload.image,
+        latitude: request.payload.latitude,
+        longitude: request.payload.longitude,
+        // category: request.payload.category,
+        // image: request.payload.image,
       };
       await db.placemarkStore.addPlacemark(category._id, newPlacemark);
       return h.redirect(`/category/${category._id}`);
