@@ -13,19 +13,15 @@ Before you begin, you must have the following installed:
 ## Installation
 
 1. Clone the repository using Git or download the source code as a ZIP file and extract it.
-
 ```
 git clone https://github.com/<username>/placemark.git
 ```
-
 2. Install dependencies using npm:
-
 ```
 npm install
 ```
 
 3. Create a `.env` file in the root directory of the project and set the following environment variables:
-
 ```
 cookie_name=<cookie name>
 cookie_password=<cookie password>
@@ -36,7 +32,6 @@ cloudinary_secret=<Cloudinary secret>
 ```
 
 4. Start the server:
-
 ```
 npm start
 ```
@@ -50,6 +45,7 @@ To run the unit tests, use the following command:
 ```
 npm test
 ```
+
 
 ## API Documentation
 
