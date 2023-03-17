@@ -1,4 +1,5 @@
 import { Placemark } from "./placemark.js";
+import { imageStore } from "../image-store.js";
 
 export const placemarkMongoStore = {
   async getAllPlacemarks() {
@@ -28,6 +29,17 @@ export const placemarkMongoStore = {
 
   async deletePlacemark(id) {
     try {
+      try {
+        const placemark = await Placemark.findOne({ _id: id }).lean();
+        if (placemark.image !== "undefined") {
+          const url = placemark.image;
+          // Public id is just the name of the file stored in cloudinary, extract the name using regEx
+          const publicId = url.match(/\/([^/]+)\.\w{3,4}(?=\.|$)/)[1];
+          await imageStore.deleteImage(publicId);
+        }
+      } catch (error) {
+        console.log("did not have an image");
+      }
       await Placemark.deleteOne({ _id: id });
     } catch (error) {
       console.log("bad id");
@@ -42,7 +54,8 @@ export const placemarkMongoStore = {
     const placemarkObject = await Placemark.findOne({ _id: placemark._id });
     placemarkObject.title = updatedPlacemark.title;
     placemarkObject.description = updatedPlacemark.description;
-    placemarkObject.location = updatedPlacemark.location;
+    placemarkObject.latitude = updatedPlacemark.latitude;
+    placemarkObject.longitude = updatedPlacemark.longitude;
     await placemarkObject.save();
   },
 
@@ -50,5 +63,10 @@ export const placemarkMongoStore = {
     const placemark = await Placemark.findOne({ _id: updatedPlacemark._id });
     placemark.image = updatedPlacemark.image;
     await placemark.save();
+  },
+
+  async deletePlacemarkImg(updatedPlacemark) {
+    const placemark = await Placemark.findOne({ _id: updatedPlacemark._id });
+    await Placemark.updateOne({ _id: placemark._id }, { $unset: { image: "" } });
   },
 };

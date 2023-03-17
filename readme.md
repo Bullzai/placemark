@@ -36,12 +36,12 @@ cloudinary_secret=<Cloudinary secret>
 npm start
 ```
 
-
 The application should now be running on http://localhost:<port number>.
 
 ## Testing
 
 To run the unit tests, use the following command:
+
 ```
 npm test
 ```

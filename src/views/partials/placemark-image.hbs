@@ -1,16 +1,22 @@
 <div class="card">
   {{#if image}}
   <div class="card-image">
-    <figure class="image is-256x256">
+    <figure class="image is-4by3">
       <img src={{image}}>
     </figure>
   </div>
   {{/if}}
   <div class="card-content">
+    {{#if image}}
+    <form action="/category/deleteimage/{{_id}}" method="GET">
+      <button type="submit" class="button is-danger is-light is-fullwidth">Delete Image</button>
+    </form>
+    {{else}}
     <form action="/category/uploadimage/{{_id}}" method="POST" enctype="multipart/form-data">
       <div id="file-select" class="file has-name is-fullwidth">
         <label class="file-label">
-          <input class="file-input" name="imagefile" type="file" name="resume" accept="image/png, image/jpeg">
+          <input class="file-input" name="imagefile" type="file" name="resume"
+            accept="image/png, image/jpeg, image/jpg">
           <span class="file-cta">
             <span class="file-icon">
               <i class="fas fa-upload"></i>
@@ -24,14 +30,6 @@
         <button type="submit" class="button is-info">Upload</button>
       </div>
     </form>
+    {{/if}}
   </div>
 </div>
-<script>
-  const fileInput = document.querySelector(".file-input");
-  fileInput.onchange = () => {
-    if (fileInput.files.length > 0) {
-      const fileName = document.querySelector(".file-name");
-      fileName.textContent = fileInput.files[0].name;
-    }
-  };
-</script>

@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-content">
         <p class="title">{{title}}</p>
-        <p class="subtitle">{{location}}</p>
+        <p class="subtitle is-6">{{latitude}} , {{longitude}}</p>
         <div class="content">{{description}}</div>
         <div class="card-image">
           {{> placemark-image }}
@@ -22,3 +22,15 @@
   </div>
   {{/each}}
 </div>
+{{!-- Select ALL classes and iterate over them to fix the bug of not updating span file-name text --}}
+<script>
+  const fileInputsList = document.querySelectorAll(".file-input");
+  fileInputsList.forEach(fileInput => {
+    fileInput.addEventListener('change', (event) => {
+      if (fileInput.files.length > 0) {
+        const fileName = fileInput.parentElement.querySelector(".file-name");
+        fileName.textContent = fileInput.files[0].name;
+      }
+    });
+  });
+</script>

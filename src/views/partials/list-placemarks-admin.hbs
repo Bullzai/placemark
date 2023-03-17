@@ -1,0 +1,34 @@
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each placemarks}}
+    <tr>
+      <td>
+        {{title}}
+      </td>
+      <td>
+        {{description}}
+      </td>
+      <td>
+        {{latitude}}
+      </td>
+      <td>
+        {{longitude}}
+      </td>
+      <td>
+        <a href="/admin/deleteplacemark/{{_id}}" class="ui icon button">
+          <i class="fas fa-trash"></i>
+        </a>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

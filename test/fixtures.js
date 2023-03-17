@@ -60,31 +60,27 @@ export const testCategories = [
 export const park = {
   "title": "Park down the road",
   "description": "A park somewhere close",
-  "location": "Cork",
-  // "category": "Parks",
-  // "image": 2
+  "latitude": "52.255",
+  "longitude": "21.775",
 };
 
 export const testPlacemarks = [
   {
     "title": "Niagara Falls",
     "description": "Niagara Falls",
-    "location": "Canada",
-    // "category": "Waterfalls",
-    // "image": 2
+    "latitude": "52.255",
+    "longitude": "21.775",
   },
   {
     "title": "Tramore Park",
     "description": "Park in Cork",
-    "location": "Cork",
-    // "category": "Parks",
-    // "image": 3
+    "latitude": "44.255",
+    "longitude": "11.775",
   },
   {
     "title": "Famous Monument",
     "description": "Some monument",
-    "location": "Eath",
-    // "category": "Monuments",
-    // "image": 4
+    "latitude": "33.255",
+    "longitude": "33.775",
   }
 ];
