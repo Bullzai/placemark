@@ -1,4 +1,5 @@
 import { Placemark } from "./placemark.js";
+import { imageStore } from "../image-store.js";
 
 export const placemarkMongoStore = {
   async getAllPlacemarks() {
@@ -28,6 +29,11 @@ export const placemarkMongoStore = {
 
   async deletePlacemark(id) {
     try {
+      const placemark = await Placemark.findOne({ _id: id }).lean();
+      const url = placemark.image;
+      // Public id is just the name of the file stored in cloudinary, extract the name using regEx
+      const publicId = url.match(/\/([^/]+)\.\w{3,4}(?=\.|$)/)[1];
+      await imageStore.deleteImage(publicId);
       await Placemark.deleteOne({ _id: id });
     } catch (error) {
       console.log("bad id");

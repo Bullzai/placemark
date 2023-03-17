@@ -76,7 +76,6 @@ export const placemarkController = {
         // Public id is just the name of the file stored in cloudinary, extract the name using regEx
         const publicId = url.match(/\/([^/]+)\.\w{3,4}(?=\.|$)/)[1];
         await imageStore.deleteImage(publicId);
-        // placemark.image = "";
         await db.placemarkStore.deletePlacemarkImg(placemark);
         return h.redirect("/dashboard");
       } catch (err) {
