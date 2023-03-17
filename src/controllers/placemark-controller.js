@@ -73,10 +73,10 @@ export const placemarkController = {
         const publicId = url.match(/\/([^/]+)\.\w{3,4}(?=\.|$)/)[1];
         await imageStore.deleteImage(publicId);
         await db.placemarkStore.deletePlacemarkImg(placemark);
-        return h.redirect("/dashboard");
+        return h.redirect(`/category/${placemark.categoryid}`);
       } catch (err) {
         console.log(err);
-        return h.redirect("/dashboard");
+        return h.redirect(`/category/${placemark.categoryid}`);
       }
     },
   }
