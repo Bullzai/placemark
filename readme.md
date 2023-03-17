@@ -53,7 +53,7 @@ API documentation is available through Swagger at http://localhost:<port number>
 
 ## Admin Dashboard
 
-To access the admin dashboard, navigate to http://localhost:<port number>/admin and enter the admin username and password.
+To access the admin dashboard, user must have `admin: true` property and he will see Admin page in the main Menu.
 
 ## Dependencies
 
