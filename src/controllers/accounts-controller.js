@@ -127,6 +127,13 @@ export const accountsController = {
     },
   },
 
+  deletePlacemark: {
+    handler: async function (request, h) {
+      await db.placemarkStore.deletePlacemark(request.params.id)
+      return h.redirect("/admin");
+    },
+  },
+
   async validate(request, session) {
     const user = await db.userStore.getUserById(session.id);
     if (!user) {
