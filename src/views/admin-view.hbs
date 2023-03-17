@@ -10,15 +10,15 @@
 <div style="width: 100%;"><canvas id="myChart"></canvas></div>
 
 <script>
-  const ds = [];
-  ds.push('{{categories.length}}');
-  ds.push('{{placemarks.length}}');
-  ds.push('{{users.length}}');
+  const dataSet = [];
+  dataSet.push('{{categories.length}}');
+  dataSet.push('{{placemarks.length}}');
+  dataSet.push('{{users.length}}');
   const data = {
     labels: ["Categories", "Placemarks", "Users"],
     datasets: [{
-      label: 'Categories',
-      data: ds,
+      label: 'Statistics',
+      data: dataSet,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',
