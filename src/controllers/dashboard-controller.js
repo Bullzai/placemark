@@ -20,7 +20,8 @@ export const dashboardController = {
       payload: CategorySpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-        return h.view("dashboard-view", { title: "Add Category error", errors: error.details }).takeover().code(400);
+        const user = request.auth.credentials;
+        return h.view("dashboard-view", { title: "Add Category error", errors: error.details, user: user }).takeover().code(400);
       },
     },
     handler: async function (request, h) {
