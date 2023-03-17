@@ -29,11 +29,17 @@ export const placemarkMongoStore = {
 
   async deletePlacemark(id) {
     try {
-      const placemark = await Placemark.findOne({ _id: id }).lean();
-      const url = placemark.image;
-      // Public id is just the name of the file stored in cloudinary, extract the name using regEx
-      const publicId = url.match(/\/([^/]+)\.\w{3,4}(?=\.|$)/)[1];
-      await imageStore.deleteImage(publicId);
+      try {
+        const placemark = await Placemark.findOne({ _id: id }).lean();
+        if (placemark.image !== "undefined") {
+          const url = placemark.image;
+          // Public id is just the name of the file stored in cloudinary, extract the name using regEx
+          const publicId = url.match(/\/([^/]+)\.\w{3,4}(?=\.|$)/)[1];
+          await imageStore.deleteImage(publicId);
+        }
+      } catch (error) {
+        console.log("did not have an image");
+      }
       await Placemark.deleteOne({ _id: id });
     } catch (error) {
       console.log("bad id");
