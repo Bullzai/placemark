@@ -1,7 +1,7 @@
 <div class="card">
   {{#if image}}
   <div class="card-image">
-    <figure class="image is-256x256">
+    <figure class="image is-4by3">
       <img src={{image}}>
     </figure>
   </div>
@@ -15,7 +15,8 @@
     <form action="/category/uploadimage/{{_id}}" method="POST" enctype="multipart/form-data">
       <div id="file-select" class="file has-name is-fullwidth">
         <label class="file-label">
-          <input class="file-input" name="imagefile" type="file" name="resume" accept="image/png, image/jpeg">
+          <input class="file-input" name="imagefile" type="file" name="resume"
+            accept="image/png, image/jpeg, image/jpg">
           <span class="file-cta">
             <span class="file-icon">
               <i class="fas fa-upload"></i>
@@ -32,12 +33,3 @@
     {{/if}}
   </div>
 </div>
-<script>
-  const fileInput = document.querySelector(".file-input");
-  fileInput.onchange = () => {
-    if (fileInput.files.length > 0) {
-      const fileName = document.querySelector(".file-name");
-      fileName.textContent = fileInput.files[0].name;
-    }
-  };
-</script>
