@@ -1,12 +1,12 @@
 import { assert } from "chai";
-import { db } from "../src/models/db.js";
-import { testCategories, museum } from "./fixtures.js";
-import { assertSubset } from "./test-utils.js"
+import { db } from "../../src/models/db.js";
+import { testCategories, museum } from "../fixtures.js";
+import { assertSubset } from "../test-utils.js"
 
-suite("Category Model tests", () => {
+suite("Category Firebase tests", () => {
 
   setup(async () => {
-    db.init("mongo");
+    db.init("firebase");
     await db.categoryStore.deleteAllCategories();
     for (let i = 0; i < testCategories.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
