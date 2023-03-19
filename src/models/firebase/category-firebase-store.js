@@ -11,6 +11,7 @@ export const categoryFirebaseStore = {
     snapshot.forEach((childSnapshot) => {
       const childKey = childSnapshot.key;
       const childData = childSnapshot.val();
+      // The ... before childData is the spread syntax in JavaScript, which allows you to expand the properties of an object into a new object.
       categories.push({ _id: childKey, ...childData });
     });
     return categories;
