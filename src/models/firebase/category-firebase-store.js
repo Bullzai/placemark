@@ -26,12 +26,15 @@ export const categoryFirebaseStore = {
   },
 
   async getCategoryById(id) {
-    const categoryRef = child(categoriesRef, id);
-    const snapshot = await get(categoryRef);
-    if (snapshot.exists()) {
-      const finalCategoryList = snapshot.val();
-      finalCategoryList.placemarks = await placemarkFirebaseStore.getPlacemarksByCategoryId(id);
-      return { _id: id, ...finalCategoryList };
+    if (id) {
+      const categoryRef = child(categoriesRef, id);
+      const snapshot = await get(categoryRef);
+      if (snapshot.exists()) {
+        const finalCategoryList = snapshot.val();
+        finalCategoryList.placemarks = await placemarkFirebaseStore.getPlacemarksByCategoryId(id);
+        return { _id: id, ...finalCategoryList };
+      }
+      return null;
     }
     return null;
   },

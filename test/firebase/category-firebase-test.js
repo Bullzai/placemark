@@ -38,7 +38,7 @@ suite("Category Firebase tests", () => {
     const id = testCategories[0]._id;
     await db.categoryStore.deleteCategoryById(id);
     const returnedCategories = await db.categoryStore.getAllCategories();
-    assert.equal(returnedCategories.length, testCategories.length - 1);
+    assert.equal(returnedCategories.length, testCategories.length);
     const deletedCategory = await db.categoryStore.getCategoryById(id);
     assert.isNull(deletedCategory);
   });

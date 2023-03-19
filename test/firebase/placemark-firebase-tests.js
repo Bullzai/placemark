@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { db } from "../../src/models/db.js";
-import { testCategories, testPlacemarks, monument, museum, park, testUsers } from "../fixtures.js";
+import { testCategories, testPlacemarks, monument, museum, park } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
 suite("Placemark Firebase tests", () => {
@@ -61,6 +61,10 @@ suite("Placemark Firebase tests", () => {
   test("delete one placemark - fail", async () => {
     await db.placemarkStore.deletePlacemark("bad-id");
     const placemarks = await db.placemarkStore.getAllPlacemarks();
+    // for (let i = 0; i < placemarks.length; i += 1) {
+    //   // eslint-disable-next-line no-await-in-loop
+    //   delete placemarks[i]._id;
+    // }
     assert.equal(placemarks.length, testCategories.length);
   });
 });
