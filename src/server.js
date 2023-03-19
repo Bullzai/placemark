@@ -42,6 +42,7 @@ const swaggerOptions = {
 async function init() {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
+    host: "localhost",
   });
 
   await server.register(Inert);
@@ -86,7 +87,7 @@ async function init() {
   });
   server.auth.default("session");
 
-  db.init();
+  db.init("firebase");
   server.route(webRoutes);
   server.route(apiRoutes);
   await server.start();
