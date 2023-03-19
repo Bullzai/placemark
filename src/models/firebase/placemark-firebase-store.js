@@ -55,6 +55,7 @@ export const placemarkFirebaseStore = {
       const snapshot = await get(placemarkRef);
       if (snapshot.exists()) {
         const placemark = snapshot.val();
+
         if (placemark.image !== "undefined") {
           const url = placemark.image;
           // Extract the public ID from the URL
@@ -65,7 +66,22 @@ export const placemarkFirebaseStore = {
     } catch (error) {
       console.log("did not have an image");
     }
-    const placemarkRef = child(placemarksRef, id);
+    let placemarkRef = child(placemarksRef, id);
+    let snapshot = await get(placemarkRef);
+    if (!snapshot.exists()) {
+      // If the placemark with the given id is not found, try searching by _id field
+      const query1 = query(placemarksRef, orderByChild("_id"), equalTo(id));
+      // After running Firebase test suites, placemarks gets created with _id field which disrupts functionality of the app
+      // As a workaround we're gonna improve the deletePlacemark function to check if `id` or `_id` was passed
+      try {
+        const querySnapshot = await get(query1);
+        const key = Object.keys(querySnapshot.val())[0];
+        placemarkRef = child(placemarksRef, key);
+        snapshot = await get(placemarkRef);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     await remove(placemarkRef);
   },
 
