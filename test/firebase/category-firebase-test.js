@@ -3,7 +3,7 @@ import { db } from "../../src/models/db.js";
 import { testCategories, museum } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js"
 
-suite("Category Firebase tests", () => {
+suite("Category Firebase Model tests", () => {
 
   setup(async () => {
     db.init("firebase");

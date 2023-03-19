@@ -3,7 +3,7 @@ import { db } from "../../src/models/db.js";
 import { testCategories, testPlacemarks, monument, museum, park } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
-suite("Placemark Firebase tests", () => {
+suite("Placemark Firebase Model tests", () => {
 
   let monumentList = null;
 
@@ -48,7 +48,7 @@ suite("Placemark Firebase tests", () => {
   test("delete One Placemark - success", async () => {
     await db.placemarkStore.deletePlacemark(testPlacemarks[0]._id);
     const placemarks = await db.placemarkStore.getAllPlacemarks();
-    assert.equal(placemarks.length, testCategories.length);
+    assert.equal(placemarks.length, testCategories.length - 1);
     const deletedPlacemark = await db.placemarkStore.getPlacemarkById(testPlacemarks[0]._id);
     assert.isNull(deletedPlacemark);
   });
