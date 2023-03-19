@@ -70,6 +70,21 @@ API documentation is available through Swagger at http://localhost:3000/document
 
 To access the admin dashboard, user must have `admin: true` property and he will see Admin page in the main Menu. Tests: user-firebase-model-test and user-mongo-model-test automatically creates an admin - homer@simpson.com
 
+## Firebase configuration
+
+Add these rules into your Realtime Database project:
+```
+    "users" : {
+      ".indexOn": "email"
+    },
+    "categories" : {
+      ".indexOn": "userid"
+    },
+    "placemarks" : {
+      ".indexOn": ["categoryid", "_id"]
+    },
+```
+
 ## Dependencies
 
 - [@hapi/boom](https://www.npmjs.com/package/@hapi/boom) - HTTP-friendly error objects
