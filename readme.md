@@ -14,7 +14,7 @@ Before you begin, you must have the following installed:
 
 1. Clone the repository using Git or download the source code as a ZIP file and extract it.
 ```
-git clone https://github.com/<username>/placemark.git
+git clone https://github.com/Bullzai/placemark.git
 ```
 2. Install dependencies using npm:
 ```
@@ -25,18 +25,27 @@ npm install
 ```
 cookie_name=<cookie name>
 cookie_password=<cookie password>
-db=<Mongodb address with user and pass if useing Cloud Atlas>
+db=<Mongodb address with user and pass if using Cloud Atlas>
 cloudinary_name=<Cloudinary username>
 cloudinary_key=<Cloudinary API key>
 cloudinary_secret=<Cloudinary secret>
+apiKey=<Your web app's Firebase configuration>
+authDomain=<Your web app's Firebase configuration>
+databaseURL=<Your web app's Firebase configuration>
+projectId=<Your web app's Firebase configuration>
+storageBucket=<Your web app's Firebase configuration>
+messagingSenderId=<Your web app's Firebase configuration>
+appId=<Your web app's Firebase configuration>
+measurementId=<Your web app's Firebase configuration>
 ```
+You can get your Firebase web app's configuration inside your Firebase console
 
 4. Start the server:
 ```
 npm start
 ```
 
-The application should now be running on http://localhost:<port number>.
+The application should now be running on http://localhost:3000
 
 ## Testing
 
@@ -49,11 +58,11 @@ npm test
 
 ## API Documentation
 
-API documentation is available through Swagger at http://localhost:<port number>/documentation.
+API documentation is available through Swagger at http://localhost:3000/documentation
 
 ## Admin Dashboard
 
-To access the admin dashboard, user must have `admin: true` property and he will see Admin page in the main Menu.
+To access the admin dashboard, user must have `admin: true` property and he will see Admin page in the main Menu. Tests: user-firebase-model-test and user-mongo-model-test automatically creates an admin - homer@simpson.com
 
 ## Dependencies
 
@@ -71,3 +80,4 @@ To access the admin dashboard, user must have `admin: true` property and he will
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - JSON web token implementation
 - [mongoose](https://www.npmjs.com/package/mongoose) - MongoDB object modeling
 - [uuid](https://www.npmjs.com/package/uuid) - UUID generation
+- [firebase](https://www.npmjs.com/package/firebase) - Firebase Realtime Database
