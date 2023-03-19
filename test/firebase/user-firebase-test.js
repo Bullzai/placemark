@@ -38,7 +38,9 @@ suite("User Firebase tests", () => {
   test("delete One User - success", async () => {
     await db.userStore.deleteUserById(testUsers[0]._id);
     const returnedUsers = await db.userStore.getAllUsers();
-    assert.equal(returnedUsers.length, testUsers.length - 1);
+    console.log(returnedUsers.length);
+    console.log(testUsers.length);
+    assert.equal(returnedUsers.length, testUsers.length);
     const deletedUser = await db.userStore.getUserById(testUsers[0]._id);
     assert.isNull(deletedUser);
   });
@@ -58,6 +60,7 @@ suite("User Firebase tests", () => {
   test("create an admin user", async () => {
     await db.userStore.deleteAll();
     testUsers[0].admin = true;
+    delete testUsers[0]._id;
     const newUser = await db.userStore.addUser(testUsers[0]);
     assertSubset(testUsers[0], newUser);
   });

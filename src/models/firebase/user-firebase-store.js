@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, push, get, child, update, remove, query, orderByChild, equalTo } from "firebase/database";
+import { ref, set, push, get, child, update, remove, query, orderByChild, equalTo } from "firebase/database";
 import database from "./firebase-config.js";
 
 const usersRef = ref(database, "users");
@@ -16,10 +16,13 @@ export const userFirebaseStore = {
   },
 
   async getUserById(id) {
-    const userRef = child(usersRef, id);
-    const snapshot = await get(userRef);
-    if (snapshot.exists()) {
-      return { _id: id, ...snapshot.val() };
+    if (id) {
+      const userRef = child(usersRef, id);
+      const snapshot = await get(userRef);
+      if (snapshot.exists()) {
+        return { _id: id, ...snapshot.val() };
+      }
+      return null;
     }
     return null;
   },
