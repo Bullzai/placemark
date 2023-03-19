@@ -38,10 +38,13 @@ export const placemarkFirebaseStore = {
   },
 
   async getPlacemarkById(id) {
-    const placemarkRef = child(placemarksRef, id);
-    const snapshot = await get(placemarkRef);
-    if (snapshot.exists()) {
-      return { _id: id, ...snapshot.val() };
+    if (id) {
+      const placemarkRef = child(placemarksRef, id);
+      const snapshot = await get(placemarkRef);
+      if (snapshot.exists()) {
+        return { _id: id, ...snapshot.val() };
+      }
+      return null;
     }
     return null;
   },

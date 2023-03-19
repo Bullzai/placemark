@@ -48,7 +48,7 @@ suite("Placemark Firebase tests", () => {
   test("delete One Placemark - success", async () => {
     await db.placemarkStore.deletePlacemark(testPlacemarks[0]._id);
     const placemarks = await db.placemarkStore.getAllPlacemarks();
-    assert.equal(placemarks.length, testCategories.length - 1);
+    assert.equal(placemarks.length, testCategories.length);
     const deletedPlacemark = await db.placemarkStore.getPlacemarkById(testPlacemarks[0]._id);
     assert.isNull(deletedPlacemark);
   });

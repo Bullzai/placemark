@@ -38,8 +38,6 @@ suite("User Firebase tests", () => {
   test("delete One User - success", async () => {
     await db.userStore.deleteUserById(testUsers[0]._id);
     const returnedUsers = await db.userStore.getAllUsers();
-    console.log(returnedUsers.length);
-    console.log(testUsers.length);
     assert.equal(returnedUsers.length, testUsers.length);
     const deletedUser = await db.userStore.getUserById(testUsers[0]._id);
     assert.isNull(deletedUser);
