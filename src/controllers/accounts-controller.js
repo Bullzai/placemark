@@ -156,8 +156,6 @@ export const accountsController = {
       }
       // Check if the user logged in via Google
       const creds = request.auth.credentials;
-      console.log("cradai: ----------");
-      console.log(creds);
       if (creds.provider === "google") {
         // Use the email address to check if the user is already registered
         let user = await db.userStore.getUserByEmail(creds.profile.email);
