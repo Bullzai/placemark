@@ -146,4 +146,35 @@ export const accountsController = {
     }
     return { isValid: true, credentials: user };
   },
+
+  google: {
+    auth: "google",
+    // eslint-disable-next-line consistent-return
+    handler: async function (request, h) {
+      if (!request.auth.isAuthenticated) {
+        return h.view("signup-view", { title: "Sign up error", errors: "Not logged in..." }).takeover().code(400);
+      }
+      // Check if the user logged in via Google
+      const creds = request.auth.credentials;
+      if (creds.provider === "google") {
+        // Use the email address to check if the user is already registered
+        let user = await db.userStore.getUserByEmail(creds.profile.email);
+
+        // If the user is not registered, create a new user account
+        if (!user) {
+          user = await db.userStore.addUser({
+            firstName: creds.profile.name.given_name,
+            lastName: creds.profile.name.family_name,
+            email: creds.profile.email,
+            // // Set a default password for Google users (leter on we can generate a random one)
+            password: "google_password",
+          });
+        }
+
+        // Log in the user
+        request.cookieAuth.set({ id: user._id });
+        return h.redirect("/dashboard");
+      }
+    },
+  },
 };
