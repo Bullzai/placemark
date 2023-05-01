@@ -120,3 +120,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Ignore cert & key
+keys/webserver.crt
+keys/private/webserver.key
