@@ -100,6 +100,13 @@ async function init() {
     clientSecret: process.env.google_secret,
     location: "https://localhost:3443",
   });
+  server.auth.strategy("github", "bell", {
+    provider: "github",
+    password: process.env.github_encryption_password,
+    isSecure: false,
+    clientId: process.env.github_client_id,
+    clientSecret: process.env.github_secret,
+  });
   server.auth.default("session");
 
   db.init("mongo");
