@@ -46,6 +46,7 @@ export const userFirebaseStore = {
       const childData = childSnapshot.val();
       result.push({ _id: childKey, ...childData });
     });
+    // Check if the result array has any elements, if so - return result[0], otherwise return null
     return result.length ? result[0] : null;
   },
 
