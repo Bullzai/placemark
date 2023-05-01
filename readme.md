@@ -14,15 +14,19 @@ Before you begin, you must have the following installed:
 ## Installation
 
 1. Clone the repository using Git or download the source code as a ZIP file and extract it.
+
 ```
 git clone https://github.com/Bullzai/placemark.git
 ```
+
 2. Install dependencies using npm:
+
 ```
 npm install
 ```
 
 3. Create a `.env` file in the root directory of the project and set the following environment variables:
+
 ```
 cookie_name=<cookie name>
 cookie_password=<cookie password>
@@ -39,14 +43,16 @@ messagingSenderId=<Your web app's Firebase configuration>
 appId=<Your web app's Firebase configuration>
 measurementId=<Your web app's Firebase configuration>
 ```
+
 You can get your Firebase web app's configuration inside your Firebase console
 
 4. Start the server:
+
 ```
 npm start
 ```
 
-The application should now be running on http://localhost:3000
+The application should now be running on https://localhost:3443
 
 ## Testing
 
@@ -55,12 +61,12 @@ To run the unit tests, use the following command:
 ```
 npm test
 ```
+
 Firebase Realtime Database is a free version, it has it's limitations.
 If you run all suites, some tests might fail because of free account limitations.
 All tests pass successfully when you run them suite by suite:
 
 ![image](https://user-images.githubusercontent.com/29129335/226178267-79e575e8-750a-42bc-a014-2be284aabc86.png)
-
 
 ## API Documentation
 
@@ -73,6 +79,7 @@ To access the admin dashboard, user must have `admin: true` property and he will
 ## Firebase configuration
 
 Add these rules into your Realtime Database project:
+
 ```
     "users" : {
       ".indexOn": "email"
