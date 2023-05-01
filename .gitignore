@@ -122,4 +122,5 @@ dist
 .pnp.*
 
 # Ignore cert & key
-keys/
+keys/webserver.crt
+keys/private/webserver.key
