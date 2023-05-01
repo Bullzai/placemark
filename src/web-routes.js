@@ -19,6 +19,7 @@ export const webRoutes = [
   { method: "GET", path: "/admin/deleteplacemark/{id}", config: accountsController.deletePlacemark },
 
   { method: "GET", path: "/google", config: accountsController.google },
+  { method: "GET", path: "/github", config: accountsController.github },
 
   { method: "GET", path: "/about", config: aboutController.index },
 

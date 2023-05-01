@@ -177,4 +177,41 @@ export const accountsController = {
       }
     },
   },
+
+  github: {
+    auth: "github",
+    // eslint-disable-next-line consistent-return
+    handler: async function (request, h) {
+      if (!request.auth.isAuthenticated) {
+        return h.view("signup-view", { title: "Sign up error", errors: "Not logged in..." }).takeover().code(400);
+      }
+      // Check if the user logged in via Google
+      const creds = request.auth.credentials;
+      if (creds.provider === "github") {
+        let gitEmail = "";
+        // Check if email is public and not null
+        if (creds.profile.email != null) {
+          gitEmail = creds.profile.email;
+        } else {
+          gitEmail = `${creds.profile.username}@github`;
+        }
+        let user = await db.userStore.getUserByEmail(gitEmail);
+
+        // If the user is not registered, create a new user account
+        if (!user) {
+          user = await db.userStore.addUser({
+            firstName: creds.profile.displayName.split(" ")[0],
+            lastName: creds.profile.displayName.split(" ")[1],
+            email: gitEmail,
+            // // Set a default password for Google users (leter on we can generate a random one)
+            password: "github_password",
+          });
+        }
+
+        // Log in the user
+        request.cookieAuth.set({ id: user._id });
+        return h.redirect("/dashboard");
+      }
+    },
+  },
 };
