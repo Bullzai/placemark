@@ -1,11 +1,13 @@
 import Vision from "@hapi/vision";
 import Hapi from "@hapi/hapi";
 import Cookie from "@hapi/cookie";
+import Bell from "@hapi/bell";
 import dotenv from "dotenv";
 import path from "path";
 import Joi from "joi";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
+import fs from "fs";
 import { fileURLToPath } from "url";
 import Handlebars from "handlebars";
 import jwt from "hapi-auth-jwt2";
@@ -41,13 +43,18 @@ const swaggerOptions = {
 
 async function init() {
   const server = Hapi.server({
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 3443,
+    tls: {
+      key: fs.readFileSync("keys/private/webserver.key"),
+      cert: fs.readFileSync("keys/webserver.crt")
+    }
   });
 
   await server.register(Inert);
   await server.register(Vision);
   await server.register(Cookie);
   await server.register(jwt);
+  await server.register(Bell);
   await server.register([
     Inert,
     Vision,
@@ -84,9 +91,18 @@ async function init() {
     validate: validate,
     verifyOptions: { algorithms: ["HS256"] }
   });
+
+  server.auth.strategy("google", "bell", {
+    provider: "google",
+    password: process.env.google_encryption_password,
+    isSecure: false,
+    clientId: process.env.google_client_id,
+    clientSecret: process.env.google_secret,
+    location: "https://localhost:3443",
+  });
   server.auth.default("session");
 
-  db.init("firebase");
+  db.init("mongo");
   server.route(webRoutes);
   server.route(apiRoutes);
   await server.start();

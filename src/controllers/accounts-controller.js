@@ -1,5 +1,8 @@
+import bcrypt from "bcrypt";
 import { UserSpec, UserCredentialsSpec, UserEditSpec, AdminSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+
+const saltRounds = 10;  // "cost factor" than controls the time taken to calculate the hash
 
 export const accountsController = {
   index: {
@@ -25,6 +28,7 @@ export const accountsController = {
     },
     handler: async function (request, h) {
       const user = request.payload;
+      user.password = await bcrypt.hash(user.password, saltRounds); // hash & salt the password
       await db.userStore.addUser(user);
       return h.redirect("/");
     },
@@ -47,7 +51,8 @@ export const accountsController = {
     handler: async function (request, h) {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
-      if (!user || user.password !== password) {
+      const passwordsMatch = await bcrypt.compare(password, user.password);
+      if (!user || !passwordsMatch) {
         return h.redirect("/");
       }
       request.cookieAuth.set({ id: user._id });
@@ -140,5 +145,36 @@ export const accountsController = {
       return { isValid: false };
     }
     return { isValid: true, credentials: user };
+  },
+
+  google: {
+    auth: "google",
+    // eslint-disable-next-line consistent-return
+    handler: async function (request, h) {
+      if (!request.auth.isAuthenticated) {
+        return h.view("signup-view", { title: "Sign up error", errors: "Not logged in..." }).takeover().code(400);
+      }
+      // Check if the user logged in via Google
+      const creds = request.auth.credentials;
+      if (creds.provider === "google") {
+        // Use the email address to check if the user is already registered
+        let user = await db.userStore.getUserByEmail(creds.profile.email);
+
+        // If the user is not registered, create a new user account
+        if (!user) {
+          user = await db.userStore.addUser({
+            firstName: creds.profile.name.given_name,
+            lastName: creds.profile.name.family_name,
+            email: creds.profile.email,
+            // // Set a default password for Google users (leter on we can generate a random one)
+            password: "google_password",
+          });
+        }
+
+        // Log in the user
+        request.cookieAuth.set({ id: user._id });
+        return h.redirect("/dashboard");
+      }
+    },
   },
 };
