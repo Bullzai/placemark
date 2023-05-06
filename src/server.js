@@ -8,6 +8,7 @@ import Joi from "joi";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
 import fs from "fs";
+import hapiHelmet from "./hapi-helmet.js";
 import { fileURLToPath } from "url";
 import Handlebars from "handlebars";
 import jwt from "hapi-auth-jwt2";
@@ -63,6 +64,9 @@ async function init() {
       options: swaggerOptions,
     },
   ]);
+  await server.register({
+    plugin: hapiHelmet,
+  });
 
   server.validator(Joi);
   server.views({
